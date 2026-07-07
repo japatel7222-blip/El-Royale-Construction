@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>El Royale Construction, LLC | Roofing & Exterior Construction</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#10100f;
+  --deep:#161512;
+  --cream:#f7f3ea;
+  --paper:#fffaf0;
+  --gold:#c99a46;
+  --bronze:#8b5d2e;
+  --slate:#4a4f55;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:Inter,sans-serif;background:var(--cream);color:#171717;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit}
+
+/* NAV */
+.navbar{
+  position:fixed;top:0;left:0;width:100%;z-index:1000;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:24px 6vw;
+  background:linear-gradient(to bottom,rgba(10,10,10,.88),rgba(10,10,10,.22),transparent);
+  transition:.35s ease;
+}
+.navbar.scrolled{background:rgba(15,15,14,.92);backdrop-filter:blur(18px);padding:16px 6vw}
+.logo{color:white;display:flex;align-items:center;gap:14px}
+.mark{width:42px;height:42px;border:1px solid rgba(201,154,70,.7);display:grid;place-items:center;color:var(--gold);font-family:"Libre Baskerville",serif;font-size:20px}
+.logo-text{font-family:"Libre Baskerville",serif;font-size:28px;letter-spacing:-.8px}
+.links{display:flex;align-items:center;gap:28px}
+.links a{color:rgba(255,255,255,.82);text-transform:uppercase;letter-spacing:1.7px;font-size:12px;font-weight:700}
+.links .outline{border:1px solid rgba(255,255,255,.45);padding:12px 18px}
+
+/* BUILT-IN ROOF VISUAL SYSTEM */
+.roof-art{
+  width:100%;
+  height:100%;
+  min-height:330px;
+  position:relative;
+  overflow:hidden;
+  background:#151412;
+  isolation:isolate;
+}
+.roof-art *{position:absolute}
+.sky{
+  inset:0;
+  background:linear-gradient(160deg,#222832 0%,#343437 38%,#171614 100%);
+}
+.sun{
+  width:170px;height:170px;border-radius:50%;
+  right:10%;top:10%;
+  background:radial-gradient(circle,rgba(255,244,215,.55),rgba(201,154,70,.13),transparent 70%);
+  filter:blur(2px);
+}
+.home{
+  left:10%;right:10%;bottom:0;height:47%;
+  background:linear-gradient(to bottom,#efe5d4,#d9cbb7);
+  box-shadow:0 -12px 50px rgba(0,0,0,.25);
+}
+.roof{
+  left:4%;right:4%;top:29%;height:32%;
+  clip-path:polygon(50% 0,100% 70%,94% 100%,6% 100%,0 70%);
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.10) 0 2px,transparent 2px 30px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.22) 0 2px,transparent 2px 92px),
+    linear-gradient(135deg,#34312d,#141412);
+  box-shadow:0 26px 42px rgba(0,0,0,.35);
+}
+.roof.clean{
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.16) 0 2px,transparent 2px 30px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 2px,transparent 2px 92px),
+    linear-gradient(135deg,#2e3539,#111315);
+}
+.gutter{
+  left:6%;right:6%;top:58%;height:9px;background:#111;border-bottom:2px solid var(--gold);
+}
+.window{bottom:13%;width:13%;height:28%;background:linear-gradient(135deg,#293a43,#101214);border:8px solid #efe8dc}
+.window.w1{left:22%}.window.w2{right:22%}
+.door{left:45%;bottom:0;width:10%;height:34%;background:#33281e;border-top:6px solid var(--gold)}
+.caption-chip{
+  left:26px;bottom:24px;z-index:5;
+  background:rgba(0,0,0,.56);color:white;
+  padding:10px 13px;
+  text-transform:uppercase;letter-spacing:1.7px;font-size:11px;font-weight:900;
+}
+
+/* Damaged old roof details */
+.roof-art.damaged .sky{background:linear-gradient(160deg,#1a1d24,#3c3d41 42%,#111)}
+.roof-art.damaged .roof{
+  background:
+    radial-gradient(circle at 28% 55%,#060606 0 4%,transparent 4.5%),
+    radial-gradient(circle at 62% 38%,#0a0a0a 0 3%,transparent 3.5%),
+    repeating-linear-gradient(0deg,rgba(255,255,255,.08) 0 2px,transparent 2px 30px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.25) 0 2px,transparent 2px 90px),
+    linear-gradient(135deg,#5b5750,#201f1d);
+}
+.roof-art.damaged .roof:after{
+  content:"";position:absolute;
+  left:18%;top:43%;width:20%;height:12%;
+  background:#736a5f;
+  clip-path:polygon(0 20%,25% 0,55% 18%,100% 0,90% 100%,10% 86%);
+}
+.roof-art.damaged .roof:before{
+  content:"";position:absolute;
+  right:18%;top:33%;width:24%;height:18%;
+  background:repeating-linear-gradient(90deg,#111 0 9px,transparent 9px 25px);
+  opacity:.65;
+  transform:rotate(-7deg);
+}
+.roof-art.damaged .stain{
+  left:51%;top:54%;width:8%;height:18%;
+  background:linear-gradient(to bottom,rgba(30,30,30,.65),transparent);
+  border-radius:0 0 50% 50%;
+}
+.raindrops{
+  inset:-20%;opacity:.22;
+  background-image:linear-gradient(115deg,rgba(255,255,255,.8) 0 1px,transparent 1px 14px);
+  background-size:18px 40px;
+  animation:rain 1s linear infinite;
+  transform:rotate(8deg);
+}
+@keyframes rain{to{transform:translateY(40px) rotate(8deg)}}
+
+/* New roof details */
+.roof-art.new .sky{background:linear-gradient(160deg,#c9d3d7,#8b9da3 46%,#3f4a4d)}
+.roof-art.new .home{background:linear-gradient(to bottom,#fbf7ef,#e8dece)}
+.roof-art.new .roof{
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.18) 0 2px,transparent 2px 30px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.15) 0 2px,transparent 2px 92px),
+    linear-gradient(135deg,#2b3336,#111518);
+}
+.roof-art.new .sun{background:radial-gradient(circle,rgba(255,244,215,.8),rgba(201,154,70,.22),transparent 70%)}
+
+/* Smaller variants */
+.roof-art.shingles .roof{
+  left:-10%;right:-10%;top:14%;height:74%;clip-path:none;
+  background:
+    repeating-linear-gradient(0deg,#3f3d39 0 30px,#242321 30px 60px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.2) 0 2px,transparent 2px 100px);
+  transform:skewY(-8deg);
+}
+.roof-art.gutters .roof{top:18%;height:38%}
+.roof-art.gutters .gutter{height:16px;background:#111;top:55%;border-bottom:3px solid var(--gold)}
+.roof-art.inspection .roof:before{
+  content:"";left:46%;top:32%;width:72px;height:72px;border:4px solid var(--gold);border-radius:50%;
+}
+.roof-art.inspection .roof:after{
+  content:"";left:55%;top:55%;width:60px;height:8px;background:var(--gold);transform:rotate(45deg);
+}
+.roof-art.metal .roof{
+  background:
+    repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 2px,transparent 2px 58px),
+    linear-gradient(135deg,#4b5154,#1d2225);
+}
+.roof-art.detail .roof:after{
+  content:"";left:47%;top:0;width:6px;height:100%;background:var(--gold);
+}
+.roof-art.detail .roof:before{
+  content:"";left:20%;top:52%;width:60%;height:8px;background:rgba(201,154,70,.82);
+}
+
+/* HERO */
+.hero{
+  min-height:100vh;position:relative;overflow:hidden;display:grid;align-items:end;
+  padding:145px 6vw 72px;
+  background:linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.48),rgba(0,0,0,.22)),linear-gradient(135deg,#0d0d0c,#242018 55%,#6f4b22);
+}
+.hero:before{
+  content:"";position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 76% 20%,rgba(201,154,70,.28),transparent 28%),
+    linear-gradient(to top,rgba(0,0,0,.58),transparent 45%);
+}
+.hero-roof{
+  position:absolute;right:-5%;bottom:-5%;width:58%;height:62%;opacity:.58;transform:perspective(900px) rotateX(58deg) rotateZ(-8deg);
+  background:
+    repeating-linear-gradient(0deg,rgba(255,255,255,.12) 0 2px,transparent 2px 34px),
+    repeating-linear-gradient(90deg,rgba(0,0,0,.24) 0 2px,transparent 2px 86px),
+    linear-gradient(135deg,#2b2a27,#111);
+  clip-path:polygon(50% 0,100% 70%,94% 100%,6% 100%,0 70%);
+  animation:heroRoof 7s ease-in-out infinite alternate;
+}
+@keyframes heroRoof{to{transform:perspective(900px) rotateX(58deg) rotateZ(-8deg) translateY(-18px)}}
+.gold-lines{
+  position:absolute;inset:0;opacity:.16;
+  background-image:
+    linear-gradient(120deg,transparent 0 47%,rgba(201,154,70,.8) 48% 49%,transparent 50%),
+    linear-gradient(60deg,transparent 0 47%,rgba(255,255,255,.45) 48% 49%,transparent 50%);
+  background-size:220px 220px;
+  animation:lineMove 18s linear infinite;
+}
+@keyframes lineMove{to{background-position:440px 220px}}
+.hero-inner{position:relative;z-index:2;color:white;max-width:1080px}
+.eyebrow{color:rgba(255,255,255,.78);display:flex;align-items:center;gap:14px;text-transform:uppercase;letter-spacing:2.8px;font-size:12px;font-weight:800;margin-bottom:28px}
+.eyebrow:before{content:"";width:58px;height:1px;background:var(--gold)}
+h1{font-family:"Libre Baskerville",serif;font-size:clamp(54px,9vw,122px);line-height:.92;letter-spacing:-4px;max-width:1060px}
+.hero-copy{margin-top:28px;max-width:690px;color:rgba(255,255,255,.82);font-size:19px;line-height:1.85}
+.hero-actions{display:flex;gap:16px;margin-top:38px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:17px 25px;text-transform:uppercase;letter-spacing:1.6px;font-size:12px;font-weight:800;color:white;background:var(--gold);border:1px solid var(--gold);transition:.35s ease}
+.btn:hover{transform:translateY(-4px);box-shadow:0 18px 45px rgba(0,0,0,.35)}
+.btn.ghost{background:transparent;border-color:rgba(255,255,255,.45)}
+.hero-stats{position:absolute;right:6vw;bottom:72px;z-index:3;width:360px;padding:28px;color:white;background:rgba(16,16,15,.66);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(18px)}
+.hero-stats .big{font-family:"Libre Baskerville",serif;font-size:56px;color:var(--gold);line-height:1}
+.hero-stats span{display:block;margin-top:6px;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,.72);font-size:11px}
+.hero-stats p{margin-top:15px;line-height:1.7;color:rgba(255,255,255,.78);font-size:14px}
+
+/* animation + sections */
+.reveal{opacity:0;transform:translateY(46px);transition:1s cubic-bezier(.2,.8,.2,1)}
+.reveal.visible{opacity:1;transform:none}
+.roof-strip{background:#111;padding:18px 0;overflow:hidden;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.roof-track{width:max-content;display:flex;animation:track 24s linear infinite}
+.tile{width:150px;height:80px;margin-right:4px;background:linear-gradient(135deg,rgba(201,154,70,.22),transparent 42%),linear-gradient(180deg,#24231f,#151513);clip-path:polygon(50% 0,100% 28%,92% 100%,8% 100%,0 28%);border:1px solid rgba(201,154,70,.18)}
+@keyframes track{to{transform:translateX(-50%)}}
+section{padding:112px 6vw}
+.kicker{color:var(--gold);text-transform:uppercase;letter-spacing:2.4px;font-size:12px;font-weight:900;margin-bottom:16px}
+h2{font-family:"Libre Baskerville",serif;font-size:clamp(38px,5.4vw,76px);line-height:1.02;letter-spacing:-2.6px}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:50px;margin-bottom:58px}
+.lead{max-width:625px;color:#606060;line-height:1.9;font-size:17px}
+
+/* panels */
+.service-panel{display:grid;grid-template-columns:1.05fr .95fr;min-height:700px;background:var(--paper);margin-bottom:38px;box-shadow:0 30px 90px rgba(0,0,0,.08)}
+.service-panel:nth-child(even){grid-template-columns:.95fr 1.05fr}
+.service-panel:nth-child(even) .service-photo{order:2}
+.service-photo{min-height:640px;overflow:hidden;position:relative}
+.service-photo .roof-art{transition:1.2s ease}
+.service-panel:hover .service-photo .roof-art{transform:scale(1.045)}
+.service-copy{padding:70px;display:flex;flex-direction:column;justify-content:center}
+.service-copy h3{font-family:"Libre Baskerville",serif;font-size:48px;line-height:1.06;letter-spacing:-1.5px;margin-bottom:24px}
+.service-copy p{color:#5b5b5b;line-height:1.9;font-size:17px}
+.learn{margin-top:30px;color:var(--bronze);text-transform:uppercase;letter-spacing:1.5px;font-size:12px;font-weight:900}
+.learn:after{content:" →";transition:.3s}.service-panel:hover .learn:after{margin-left:9px}
+
+/* problem */
+.problem{background:var(--deep);color:white}.problem .lead{color:rgba(255,255,255,.67)}
+.problem-grid{display:grid;grid-template-columns:340px 1fr;gap:50px;margin-top:50px}
+.problem-tabs{display:flex;flex-direction:column;gap:12px}
+.problem-tab{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.15);color:white;padding:19px 22px;text-align:left;cursor:pointer;transition:.3s ease;font-weight:700}
+.problem-tab.active,.problem-tab:hover{background:var(--gold);border-color:var(--gold);color:#111}
+.problem-stage{min-height:520px;border:1px solid rgba(255,255,255,.14);position:relative;overflow:hidden}
+.problem-panel{position:absolute;inset:0;opacity:0;transform:scale(1.03);transition:.55s ease;display:grid;grid-template-columns:1fr 1fr}
+.problem-panel.active{opacity:1;transform:scale(1);z-index:3}
+.problem-text{background:#1b1a17;padding:58px;display:flex;flex-direction:column;justify-content:center}
+.problem-text h3{font-family:"Libre Baskerville",serif;font-size:43px;margin-bottom:17px}
+.problem-text p{color:rgba(255,255,255,.74);line-height:1.85}
+
+/* materials */
+.materials{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.material{min-height:420px;position:relative;overflow:hidden;color:white;background:#111;cursor:pointer}
+.material .roof-art{transition:1s ease}.material:hover .roof-art{transform:scale(1.07);filter:brightness(.74)}
+.material-content{position:absolute;inset:auto 0 0 0;padding:30px;background:linear-gradient(to top,rgba(0,0,0,.84),transparent);z-index:5}
+.material h3{font-family:"Libre Baskerville",serif;font-size:30px;margin-bottom:10px}
+.material p{max-height:0;overflow:hidden;opacity:0;transition:.4s ease;color:rgba(255,255,255,.78);line-height:1.7}
+.material:hover p{max-height:160px;opacity:1}
+
+/* before after */
+.ba-wrap{background:#fffaf0}
+.ba{height:670px;position:relative;overflow:hidden;border:1px solid #ded5c5;background:#111}
+.ba .roof-art{position:absolute;inset:0;width:100%;height:100%}
+.ba .after{clip-path:inset(0 0 0 50%)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:10}
+.ba-line{position:absolute;top:0;bottom:0;left:50%;width:2px;background:white;z-index:8}
+.ba-line:before{content:"DRAG";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;color:#111;border:1px solid rgba(0,0,0,.1);border-radius:999px;padding:14px 16px;font-size:11px;font-weight:900;letter-spacing:1.6px}
+.ba-label{position:absolute;top:28px;z-index:6;background:rgba(0,0,0,.55);color:white;padding:10px 14px;letter-spacing:2px;font-size:11px;font-weight:900}
+.ba-label.left{left:28px}.ba-label.right{right:28px}
+
+/* portfolio */
+.portfolio{display:grid;grid-template-columns:1.2fr .8fr 1fr;grid-auto-rows:270px;gap:18px}
+.project{position:relative;overflow:hidden;background:#111}
+.project:nth-child(1){grid-row:span 2}.project:nth-child(5){grid-column:span 2}
+.project .roof-art{transition:1s ease}.project:hover .roof-art{transform:scale(1.06)}
+.project:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.62),transparent 55%)}
+.project span{position:absolute;left:24px;bottom:22px;z-index:2;color:white;font-weight:800;letter-spacing:.3px}
+
+/* reviews */
+.reviews{background:#111;color:white}
+.review-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px}
+.main-review{min-height:550px;background:linear-gradient(rgba(0,0,0,.68),rgba(0,0,0,.72)),linear-gradient(135deg,#171614,#2b241a,#8b5d2e);display:flex;flex-direction:column;justify-content:end;padding:58px;position:relative;overflow:hidden}
+.main-review:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(201,154,70,.18) 0 2px,transparent 2px 44px);opacity:.25}
+.main-review>*{position:relative;z-index:2}
+.quote{font-family:"Libre Baskerville",serif;font-size:38px;line-height:1.28;max-width:850px}
+.stars{color:var(--gold);letter-spacing:4px;margin-bottom:18px}
+.review-stack{display:grid;gap:28px}
+.review-card{border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.045);padding:32px}
+.review-card p{line-height:1.8;color:rgba(255,255,255,.78)}
+
+/* process/footer */
+.timeline{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:#d5c8ad}
+.step{background:var(--cream);min-height:220px;padding:32px 23px;position:relative;overflow:hidden}
+.step:before{content:attr(data-step);position:absolute;right:14px;top:0;font-family:"Libre Baskerville",serif;font-size:78px;color:rgba(0,0,0,.06)}
+.step h3{margin-top:72px;margin-bottom:10px}.step p{color:#666;line-height:1.7;font-size:14px}
+footer{background:#0d0d0c;color:white;padding:72px 6vw;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+footer h2{font-size:44px}.foot-info{margin-top:22px;color:rgba(255,255,255,.72);line-height:1.9}
+.foot-links{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;color:rgba(255,255,255,.72)}
+.float-call{position:fixed;right:24px;bottom:24px;background:var(--gold);color:#111;padding:17px 22px;z-index:1200;text-transform:uppercase;font-size:12px;letter-spacing:1.4px;font-weight:900;box-shadow:0 18px 44px rgba(0,0,0,.3)}
+@media(max-width:1050px){
+  .links{display:none}.hero-stats{position:relative;right:auto;bottom:auto;margin-top:34px}
+  .service-panel,.service-panel:nth-child(even),.problem-grid,.problem-panel,.review-grid,footer{grid-template-columns:1fr}
+  .service-panel:nth-child(even) .service-photo{order:0}
+  .materials,.timeline{grid-template-columns:1fr 1fr}
+  .portfolio{grid-template-columns:1fr;grid-auto-rows:330px}
+  .project:nth-child(1),.project:nth-child(5){grid-row:auto;grid-column:auto}
+}
+@media(max-width:650px){
+  .materials,.timeline{grid-template-columns:1fr}.service-copy{padding:42px}h1{letter-spacing:-2px}.hero{padding-top:120px}
+}
+</style>
+</head>
+<body>
+<header class="navbar" id="navbar">
+  <a class="logo" href="#"><span class="mark">ER</span><span class="logo-text">El Royale Construction</span></a>
+  <nav class="links">
+    <a href="#roofing">Roofing</a><a href="#materials">Materials</a><a href="#projects">Projects</a><a href="#reviews">Reviews</a><a href="#contact" class="outline">Request Inspection</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="gold-lines"></div><div class="hero-roof"></div>
+  <div class="hero-inner reveal">
+    <div class="eyebrow">Cartersville, Georgia • Roofing Contractor</div>
+    <h1>El Royale Construction, LLC</h1>
+    <p class="hero-copy">Roofing, full roof replacements, repairs, storm response, and exterior construction completed with dependable communication, efficient scheduling, and workmanship built to protect your home.</p>
+    <div class="hero-actions"><a class="btn" href="#contact">Request Inspection</a><a class="btn ghost" href="#projects">View Projects</a></div>
+  </div>
+  <aside class="hero-stats reveal"><div class="big">5.0</div><span>Rated by local homeowners</span><p>Known for responsive service, clean work, fair pricing, and fast project completion throughout the Cartersville area.</p></aside>
+</section>
+
+<div class="roof-strip"><div class="roof-track">
+  <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+  <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+</div></div>
+
+<section>
+  <div class="section-head reveal">
+    <div><div class="kicker">Roofing & Exterior Construction</div><h2>Built with speed, care, and a clean finish.</h2></div>
+    <p class="lead">When your roof needs attention, the process should be simple: a clear inspection, honest recommendations, efficient scheduling, and quality work completed with respect for your home.</p>
+  </div>
+</section>
+
+<section id="roofing">
+  <article class="service-panel reveal">
+    <div class="service-photo"><div class="roof-art new"><div class="sky"></div><div class="sun"></div><div class="roof clean"></div><div class="gutter"></div><div class="home"></div><div class="window w1"></div><div class="window w2"></div><div class="door"></div><div class="caption-chip">Full Roof Replacement</div></div></div>
+    <div class="service-copy"><div class="kicker">Full Roof Replacement</div><h3>A stronger roof, installed with attention to every layer.</h3><p>From tear-off to final cleanup, every replacement is handled with care. Materials, ventilation, flashing, ridge detail, and shingle installation all work together to protect the home and improve curb appeal.</p><a class="learn">Plan a replacement</a></div>
+  </article>
+
+  <article class="service-panel reveal">
+    <div class="service-photo"><div class="roof-art damaged"><div class="raindrops"></div><div class="sky"></div><div class="roof"></div><div class="stain"></div><div class="gutter"></div><div class="home"></div><div class="window w1"></div><div class="window w2"></div><div class="door"></div><div class="caption-chip">Roof Repair</div></div></div>
+    <div class="service-copy"><div class="kicker">Roof Repairs</div><h3>Quick response for leaks, damage, and problem areas.</h3><p>Small roofing problems can turn into expensive interior damage if ignored. Repairs are focused on identifying the source, correcting the issue properly, and helping the roof perform through the next storm.</p><a class="learn">Request repair help</a></div>
+  </article>
+
+  <article class="service-panel reveal">
+    <div class="service-photo"><div class="roof-art damaged"><div class="raindrops"></div><div class="sky"></div><div class="roof"></div><div class="gutter"></div><div class="home"></div><div class="window w1"></div><div class="window w2"></div><div class="door"></div><div class="caption-chip">Storm Damage</div></div></div>
+    <div class="service-copy"><div class="kicker">Storm & Weather Damage</div><h3>Inspection and repair after heavy rain, wind, or hail.</h3><p>Storm damage is not always visible from the driveway. Missing shingles, lifted edges, punctures, exposed flashing, and drainage issues should be inspected before the next round of weather moves through.</p><a class="learn">Schedule an inspection</a></div>
+  </article>
+</section>
+
+<section class="problem">
+  <div class="reveal"><div class="kicker">What Can We Help With?</div><h2>Choose the issue and get a clear next step.</h2><p class="lead" style="margin-top:22px">Whether the roof is leaking, aging, damaged by weather, or ready for replacement, El Royale Construction provides a straightforward path from inspection to completed work.</p></div>
+  <div class="problem-grid reveal">
+    <div class="problem-tabs">
+      <button class="problem-tab active" data-tab="0">Leaking Roof</button><button class="problem-tab" data-tab="1">Missing Shingles</button><button class="problem-tab" data-tab="2">Full Replacement</button><button class="problem-tab" data-tab="3">Storm Damage</button><button class="problem-tab" data-tab="4">Inspection</button>
+    </div>
+    <div class="problem-stage">
+      <div class="problem-panel active"><div class="roof-art damaged"><div class="raindrops"></div><div class="sky"></div><div class="roof"></div><div class="stain"></div><div class="gutter"></div><div class="home"></div></div><div class="problem-text"><h3>Leaking Roof</h3><p>Find the source of water intrusion and repair the affected area before moisture spreads into ceilings, insulation, or interior finishes.</p></div></div>
+      <div class="problem-panel"><div class="roof-art shingles"><div class="roof"></div><div class="caption-chip">Missing Shingles</div></div><div class="problem-text"><h3>Missing Shingles</h3><p>Replace damaged or missing shingles and inspect surrounding areas for lifted tabs, exposed underlayment, or storm-related damage.</p></div></div>
+      <div class="problem-panel"><div class="roof-art new"><div class="sky"></div><div class="sun"></div><div class="roof clean"></div><div class="gutter"></div><div class="home"></div></div><div class="problem-text"><h3>Full Replacement</h3><p>Upgrade the entire roofing system with materials selected for durability, appearance, ventilation, and long-term protection.</p></div></div>
+      <div class="problem-panel"><div class="roof-art damaged"><div class="raindrops"></div><div class="sky"></div><div class="roof"></div><div class="gutter"></div><div class="home"></div></div><div class="problem-text"><h3>Storm Damage</h3><p>Inspect the roof after high winds, hail, fallen branches, or heavy rain to document damage and recommend the correct repair plan.</p></div></div>
+      <div class="problem-panel"><div class="roof-art inspection"><div class="sky"></div><div class="roof"></div><div class="gutter"></div><div class="home"></div></div><div class="problem-text"><h3>Roof Inspection</h3><p>Get a professional evaluation before buying, selling, filing a claim, or planning future exterior work.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="materials">
+  <div class="section-head reveal">
+    <div><div class="kicker">Roofing Options</div><h2>Materials selected for performance and curb appeal.</h2></div>
+    <p class="lead">The right roofing material should match the home's style, budget, and long-term protection needs. Each option is reviewed clearly before work begins.</p>
+  </div>
+  <div class="materials reveal">
+    <div class="material"><div class="roof-art shingles"><div class="roof"></div></div><div class="material-content"><h3>Architectural Shingles</h3><p>Dimensional roofing with strong curb appeal and dependable protection for most residential homes.</p></div></div>
+    <div class="material"><div class="roof-art new"><div class="sky"></div><div class="sun"></div><div class="roof clean"></div><div class="home"></div></div><div class="material-content"><h3>Designer Roofing</h3><p>Elevated profiles and colors for homes that need a more distinctive finished look.</p></div></div>
+    <div class="material"><div class="roof-art metal"><div class="sky"></div><div class="roof"></div><div class="home"></div></div><div class="material-content"><h3>Metal Accents</h3><p>Standing seam and metal details for porches, dormers, awnings, and architectural roof features.</p></div></div>
+    <div class="material"><div class="roof-art detail"><div class="sky"></div><div class="roof"></div><div class="home"></div></div><div class="material-content"><h3>Roof Details</h3><p>Flashing, vents, edges, and transitions installed carefully to protect the areas most prone to leaks.</p></div></div>
+  </div>
+</section>
+
+<section class="ba-wrap">
+  <div class="section-head reveal">
+    <div><div class="kicker">Before & After</div><h2>From worn and damaged to clean and fully protected.</h2></div>
+    <p class="lead">Slide across the image to compare an aging, damaged roof against a clean new installation built to protect the home and improve curb appeal.</p>
+  </div>
+  <div class="ba reveal">
+    <div class="roof-art damaged"><div class="raindrops"></div><div class="sky"></div><div class="roof"></div><div class="stain"></div><div class="gutter"></div><div class="home"></div><div class="window w1"></div><div class="window w2"></div><div class="door"></div></div>
+    <div class="roof-art new after" id="afterImg"><div class="sky"></div><div class="sun"></div><div class="roof clean"></div><div class="gutter"></div><div class="home"></div><div class="window w1"></div><div class="window w2"></div><div class="door"></div></div>
+    <span class="ba-label left">DAMAGED ROOF</span><span class="ba-label right">NEW ROOF</span>
+    <div class="ba-line" id="baLine"></div><input id="baRange" type="range" min="0" max="100" value="50" aria-label="Before after slider">
+  </div>
+</section>
+
+<section id="projects">
+  <div class="section-head reveal">
+    <div><div class="kicker">Recent Projects</div><h2>Clean roofing work with a finished exterior look.</h2></div>
+    <p class="lead">Project visuals help homeowners see the quality of the installation, the finished appearance, and the level of detail that goes into each roof.</p>
+  </div>
+  <div class="portfolio reveal">
+    <figure class="project"><div class="roof-art new"><div class="sky"></div><div class="sun"></div><div class="roof clean"></div><div class="gutter"></div><div class="home"></div></div><span>Residential Roof Replacement</span></figure>
+    <figure class="project"><div class="roof-art shingles"><div class="roof"></div></div><span>Architectural Shingles</span></figure>
+    <figure class="project"><div class="roof-art gutters"><div class="sky"></div><div class="roof"></div><div class="gutter"></div><div class="home"></div></div><span>Exterior Finish</span></figure>
+    <figure class="project"><div class="roof-art inspection"><div class="sky"></div><div class="roof"></div><div class="gutter"></div><div class="home"></div></div><span>Home Protection</span></figure>
+    <figure class="project"><div class="roof-art detail"><div class="sky"></div><div class="roof"></div><div class="gutter"></div><div class="home"></div></div><span>Complete Roofing System</span></figure>
+  </div>
+</section>
+
+<section class="reviews" id="reviews">
+  <div class="section-head reveal"><div><div class="kicker">Customer Reviews</div><h2>Known for fast work, fair pricing, and responsive service.</h2></div></div>
+  <div class="review-grid reveal">
+    <div class="main-review"><div class="stars">★★★★★</div><p class="quote">“They have experience and will do a clean, fast job. I love it.”</p></div>
+    <div class="review-stack">
+      <div class="review-card"><div class="stars">★★★★★</div><p>“The owner is very polite and always ready within a phone call to answer any concerns I may have about my roof.”</p></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p>“They did a very good job. They were very nice and understanding, and they finished it in no time.”</p></div>
+      <div class="review-card"><div class="stars">★★★★★</div><p>“They do a good job at a fair price.”</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-head reveal"><div><div class="kicker">Process</div><h2>Simple, direct, and built around getting the work done right.</h2></div></div>
+  <div class="timeline reveal">
+    <div class="step" data-step="01"><h3>Call</h3><p>Reach out with the issue, location, and best time for an inspection.</p></div>
+    <div class="step" data-step="02"><h3>Inspect</h3><p>Review the roof condition, visible damage, and exterior problem areas.</p></div>
+    <div class="step" data-step="03"><h3>Explain</h3><p>Receive a clear recommendation for repair, replacement, or next steps.</p></div>
+    <div class="step" data-step="04"><h3>Schedule</h3><p>Set the work date and prepare the home for installation or repair.</p></div>
+    <div class="step" data-step="05"><h3>Build</h3><p>Complete the project efficiently with care for the property and cleanup.</p></div>
+    <div class="step" data-step="06"><h3>Finish</h3><p>Review the completed work and confirm the roof is ready to protect the home.</p></div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div><h2>El Royale Construction, LLC</h2><div class="foot-info">390 Old Mill Rd, Cartersville, GA 30120<br>(470) 263-4157<br>Open 24 Hours</div></div>
+  <div class="foot-links"><a>Full Roof Replacement</a><a>Roof Repairs</a><a>Storm Damage</a><a>Roof Inspections</a><a>Exterior Construction</a><a>Emergency Roofing</a><a>Reviews</a><a>Contact</a></div>
+</footer>
+
+<a class="float-call" href="tel:4702634157">Call 24/7</a>
+
+<script>
+const navbar=document.getElementById('navbar');
+window.addEventListener('scroll',()=>navbar.classList.toggle('scrolled',window.scrollY>60));
+
+const observer=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible')}});
+},{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+const tabs=document.querySelectorAll('.problem-tab');
+const panels=document.querySelectorAll('.problem-panel');
+tabs.forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    tabs.forEach(t=>t.classList.remove('active'));
+    panels.forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    panels[Number(tab.dataset.tab)].classList.add('active');
+  });
+});
+
+const range=document.getElementById('baRange');
+const after=document.getElementById('afterImg');
+const line=document.getElementById('baLine');
+range.addEventListener('input',(e)=>{
+  const v=e.target.value;
+  after.style.clipPath=`inset(0 0 0 ${v}%)`;
+  line.style.left=`${v}%`;
+});
+</script>
+</body>
+</html>
